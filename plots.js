@@ -1,4 +1,4 @@
-unction init() {
+function init() {
   var selector = d3.select("#selDataset");
 
   d3.json("samples.json").then((data) => {
@@ -11,7 +11,7 @@ unction init() {
         .property("value", sample);
     });
 
-    // Setting Charts
+    // set the default charts
     buildMetadata(940);
     buildCharts(940);
 })}
@@ -64,24 +64,23 @@ function buildCharts(sample){
   var otuIds= sampleResult.otu_ids;
   var sampleValues = sampleResult.sample_values;
   var traceBubble = {x:otuIds,y:sampleValues, text:bacteriaLabels, mode:"markers", 
-  marker:{size:sampleValues, color: otuIds, colorscale:"Picnic"}};
+  marker:{size:sampleValues, color: otuIds, colorscale:"earth"}};
   var data2 = [traceBubble];
   var layout2 ={xaxis:{title:"OTU ID"}}
   Plotly.newPlot("bubble", data2, layout2)
 
   // Making Gauge Chart
-
   var traceBelly = {
-    title: { text: "Frequency of Belly Button Washes" },
-    domain: { x: [0, 9]},
+    title: { text: "Belly Button Washing Frequency" },
     type: "indicator",
     value: wfreq,
     mode: "gauge", 
     gauge:{axis:{visible:true,range:[0,9]}}
+    
   };
 
   var data3 = [traceBelly]
-  var layout3 = { width: 600, height: 400, margin: { t: 0, b: 0 }};
+  var layout3 = { width: 500, height: 300, margin: { t: 0, b: 0 }};
   Plotly.newPlot("gauge", data3, layout3);
 
 });
